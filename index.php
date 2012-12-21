@@ -89,11 +89,15 @@ if(isset($_GET["load"])){
             connectWith: ".column"
         });
 
-        $(".portlet-header .ui-icon").click(function() {
+        $(".portlet-header .ui-icon-pencil").click(function() {
             currentPortlet = $(this);
             $("#dialog-title").val(currentPortlet.siblings(".title").html());
             $("#dialog-contents").val(br2nl(currentPortlet.parent().parent().find(".portlet-content").html()));
             $("#dialog-form").dialog("open");               
+        });
+    	$(".portlet-header .ui-icon-trash").click(function() {
+            currentPortlet = $(this);
+			currentPortlet.parent().parent().remove();          
         });
 
         $(".column").disableSelection();
@@ -138,7 +142,7 @@ if(isset($_GET["load"])){
         
         $("#addlink").click(function(){
             $(".column").first().append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'
-                +'<div class="portlet-header ui-widget-header ui-corner-all"><span class="ui-icon ui-icon-pencil"></span><span class="title">Title</span></div>'
+                +'<div class="portlet-header ui-widget-header ui-corner-all"><span class="ui-icon ui-icon-trash"></span><span class="ui-icon ui-icon-pencil"></span><span class="title">Title</span></div>'
                 +'<div class="portlet-content">Text</div>'
                 +'</div>');
                 initMap();

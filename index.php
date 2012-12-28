@@ -48,6 +48,40 @@ if(isset($_GET["load"])){
         height: 150px;
         font-size: 10px;
     }
+    label {
+		cursor:pointer;
+	}	
+	.blue {
+		border: 1px solid #4297d7; 
+		background: #2191c0 url(http://code.jquery.com/ui/1.9.1/themes/start/images/ui-bg_gloss-wave_75_2191c0_500x100.png) 50% 50% repeat-x; 
+		color: #eaf5f7; 
+		font-weight: bold;
+	}
+	.red {
+		border: 1px solid #e3a1a1; 
+		background: #cc0000 url(http://code.jquery.com/ui/1.9.1/themes/blitzer/images/ui-bg_highlight-soft_15_cc0000_1x100.png) 50% 50% repeat-x; 
+		color: #ffffff; 
+		font-weight: bold;
+	}
+	.green {
+		border: 1px solid #3f7506; 
+		background: #3a8104 url(http://code.jquery.com/ui/1.9.1/themes/le-frog/images/ui-bg_highlight-soft_33_3a8104_1x100.png) 50% 50% repeat-x; 
+		color: #ffffff; 
+		font-weight: bold;
+	}
+	.black {
+		border: 1px solid #333333; 
+		background: #333333 url(http://code.jquery.com/ui/1.9.1/themes/ui-darkness/images/ui-bg_gloss-wave_25_333333_500x100.png) 50% 50% repeat-x; 
+		color: #ffffff; 
+		font-weight: bold;
+	}
+	.orange {
+		border: 1px solid #e78f08; 
+		background: #f6a828 url(http://code.jquery.com/ui/1.9.1/themes/ui-lightness/images/ui-bg_gloss-wave_35_f6a828_500x100.png) 50% 50% repeat-x; 
+		color: #ffffff; 
+		font-weight: bold;
+	}
+	
     
     .column { width: 170px; float: left; padding-bottom: 100px; }
     .portlet { margin: 0 1em 1em 0; }
@@ -89,11 +123,15 @@ if(isset($_GET["load"])){
             connectWith: ".column"
         });
 
-        $(".portlet-header .ui-icon").click(function() {
+        $(".portlet-header .ui-icon-pencil").click(function() {
             currentPortlet = $(this);
             $("#dialog-title").val(currentPortlet.siblings(".title").html());
             $("#dialog-contents").val(br2nl(currentPortlet.parent().parent().find(".portlet-content").html()));
             $("#dialog-form").dialog("open");               
+        });
+		$(".portlet-header .ui-icon-trash").click(function() {
+            currentPortlet = $(this);
+			currentPortlet.parent().parent().remove();          
         });
 
         $(".column").disableSelection();
@@ -127,6 +165,9 @@ if(isset($_GET["load"])){
                 "OK": function() {
                     currentPortlet.siblings(".title").html($("#dialog-title").val());
                     currentPortlet.parent().parent().find(".portlet-content").html(nl2br($("#dialog-contents").val()));
+					var bchecked =  $('#checkArray :radio:checked').attr('id');
+					currentPortlet.parent().removeClass()
+					currentPortlet.parent().addClass('portlet-header ui-corner-all '+bchecked);
                     $(this).dialog("close");
                     save();
                 },
@@ -138,7 +179,7 @@ if(isset($_GET["load"])){
         
         $("#addlink").click(function(){
             $(".column").first().append('<div class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all">'
-                +'<div class="portlet-header ui-widget-header ui-corner-all"><span class="ui-icon ui-icon-pencil"></span><span class="title">Title</span></div>'
+                +'<div class="portlet-header ui-widget-header ui-corner-all"><span class="ui-icon ui-icon-trash"></span><span class="ui-icon ui-icon-pencil"></span><span class="title">Title</span></div>'
                 +'<div class="portlet-content">Text</div>'
                 +'</div>');
                 initMap();
@@ -216,6 +257,19 @@ hQwR9FwdkiAL3ClEEyi829Tp3rQKFzBkWKDBgYgDArBpRBQIADsAAAAAAAAAAAA=" /><br />Loadin
         <input type="text" id="dialog-title" class="text ui-widget-content ui-corner-all" />
         <label for="dialog-contents">Contents</label>
         <textarea class="text ui-widget-content ui-corner-all" id="dialog-contents"></textarea>
+		<p>Colors</p>
+		<fieldset id="checkArray">
+			<label class="radio inline"> 
+				<input type="radio" id="ui-widget-header" name="color" checked/> 
+				Default
+			</label>
+			<label class="radio inline"> <input type="radio" id="blue" name="color"/> Blue </label>
+			<label class="radio inline"> <input type="radio" id="red" name="color"/> Red </label>
+			<label class="radio inline"> <input type="radio" id="green" name="color"/> Green </label>
+			<label class="radio inline"> <input type="radio" id="black" name="color"/> Black </label>
+			<label class="radio inline"> <input type="radio" id="orange" name="color"/> Orange </label>
+		<fieldset/>
+		
     </fieldset>
     </form>
 </div>
